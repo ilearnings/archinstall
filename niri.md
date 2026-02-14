@@ -16,4 +16,7 @@
 
 查看 [Noctalia](https://docs.noctalia.dev) 文档
 
-## 1. x
+## 1. niri 安装
+
+```zsh
+```
