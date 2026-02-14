@@ -87,7 +87,7 @@ lsblk
 
 **UEFI** **+** **GPT** **方案**
 
-<table border="1" cellpadding="10" cellspacing="0" style="text-align: center;">
+<table border="1" cellpadding="10" cellspacing="0" style="text-align: center;" translate="no">
   <thead>
     <tr>
       <th>分区</th>
