@@ -227,18 +227,31 @@ pacman -Sy
 pacstrap -K /mnt
 base                # 基础系统包
 base-devel          # 基础开发包
+blueman             # 蓝牙管理器
+bluez               # 蓝牙协议栈核心
+bluez-utils         # 蓝牙命令行工具
 efibootmgr          # UEFI 启动管理器
-ethtool             # 网络诊断工具
-fastfetch           # 系统信息显示
-git                 # 版本控制工具
-grub                # 引导加载器
-intel-ucode         # Intel CPU 微码
+ethtool             # 以太网配置诊断工具
+fastfetch           # 系统信息显示工具
+git                 # 分布式版本控制系统
+grub                # GRUB 引导加载器
+intel-ucode         # Intel 处理器微码
+iwd                 # iNet 无线网络守护进程
 linux               # Linux 内核
-linux-firmware      # Linux 固件
-neovim              # 文本编辑器
-networkmanager      # 网络管理
-openssh             # SSH 服务
-zsh                 # Shell
+linux-firmware      # Linux 硬件固件包
+neovim              # 现代化 Vim 编辑器
+networkmanager      # 网络管理服务
+# nvidia-580xx-dkms   # NVIDIA 10系显卡 DKMS 驱动
+nvidia-open         # NVIDIA 显卡开源内核模块
+nvidia-settings     # NVIDIA 显卡配置GUI工具
+nvidia-utils        # NVIDIA 显卡驱动工具
+openssh             # SSH服务
+pipewire            # 多媒体处理服务
+pipewire-alsa       # PipeWire 的 ALSA 支持
+pipewire-pulse      # PipeWire 的 PulseAudio 兼容层
+pwvucontrol         # PipeWire 音量控制图形工具
+wireplumber         # PipeWire 会话管理器
+zsh                 # Z Shell 高级命令行解释器
 ```
 
 ### 配置系统
@@ -341,15 +354,18 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 输入 ```exit``` 退出 chroot 环境,执行 ```reboot``` 重启系统.
 
+---
+
 ## 安装 驱动
 
 ### 安装
 
-[ √ ] CPU
-[ x ] CPU
-
 ```zsh
+# 验证显卡设备型号
+lspci | grep -i vga
 ```
+
+---
 
 ### niri 参考资源
 
@@ -365,7 +381,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 查看 [Noctalia](https://docs.noctalia.dev) 文档
 
-### 安装
+### niri 安装
 
 ```zsh
 ```
