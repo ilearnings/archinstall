@@ -2,34 +2,36 @@
 
 ![Arch Linux](https://archlinux.org.cn/static/logos/archlinux-logo-light-90dpi.png)
 
-⚙️ BIOS 设置 : **更新** • **优化** • **开启虚拟化** • **禁用安全启动 UEFI**
+> **⚙️ BIOS 设置 :** **更新** • **优化** • **开启虚拟化** • **禁用安全启动 UEFI**
 
-## 1. 安装前准备
+## 安装 Arch Linux
 
-### 1.1 安装指南
+### Arch Linux 参考资源
+
+#### 1 安装指南
 
 查看 [安装指南](https://wiki.archlinuxcn.org/wiki/%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97) 文档
 
-### 1.2 安装介质
+#### 2 安装介质
 
 获取 [Ventoy](https://github.com/ventoy/Ventoy/releases) 包
 
-### 1.3 获取镜像
+#### 3 获取镜像
 
 获取 [iso](https://archlinux.org/download) 镜像
 
----
+### 安装前准备
 
-### 1.4 联网
+#### 1 联网
 
 ```zsh
 # 验证网络
 ping -c 3 tuna.moe
 ```
 
-#### 1.4.1 设置网络
+#### 2 设置网络
 
-**如果网络正常,请跳过此部分!**
+> **如果网络正常,请跳过此部分!**
 
 ```zsh
 # 1. 解除所有无线设备软阻塞
@@ -69,25 +71,25 @@ exit
 ping -c 3 tuna.moe
 ```
 
-### 1.5 更新系统时间
+#### 3 更新系统时间
 
 ```zsh
 # 查看时间状态
 timedatectl
 ```
 
-### 1.6 创建硬盘分区
+#### 4 创建硬盘分区
 
 ```zsh
 # 列出块设备信息
 lsblk
 ```
 
-#### 1.6.1 分区方案
+##### 4.1 分区方案
 
 **UEFI** **+** **GPT** **方案**
 
-<table border="1" cellpadding="10" cellspacing="0" style="text-align: center;" translate="no">
+<table border="1" cellpadding="10" cellspacing="0" style="text-align: center;">
   <thead>
     <tr>
       <th>分区</th>
@@ -142,7 +144,7 @@ lsblk
   </tbody>
 </table>
 
-### 1.7 分区
+#### 5 分区
 
 ```zsh
 # 交互模式分区流程 : cfdisk <分区> → 选择:空闲空间 → New → 设置:大小 → Type → 选择:类型 → Write → 确认:yes → Quit
@@ -157,7 +159,7 @@ cfdisk /dev/sdb
 lsblk
 ```
 
-### 1.8 格式化
+#### 6 格式化
 
 ```zsh
 # 1. 格式化 /dev/sda1 (EFI System)
@@ -173,7 +175,7 @@ mkfs.ext4 -L HOME /dev/sdb1
 lsblk -f
 ```
 
-### 1.9 挂载
+#### 7 挂载
 
 ```zsh
 # 1. 挂载 /dev/sda3 至 ROOT 分区
@@ -189,7 +191,7 @@ mount /dev/sdb1 --mkdir /mnt/home
 df -Th
 ```
 
-### 1.10 启用 SWAP
+#### 8 启用 SWAP
 
 ```zsh
 # 1. 启用 SWAP
@@ -199,16 +201,16 @@ mkswap /dev/sda2
 swapon
 ```
 
-## 2. 开始安装系统
+### 2. 开始安装系统
 
-### 2.1 关闭 reflector 服务
+#### 1 关闭 reflector 服务
 
 ```zsh
 # 停止 reflector 服务
 systemctl stop reflector.service
 ```
 
-### 2.2 镜像站
+#### 2 镜像站
 
 ```zsh
 # 配置源
@@ -218,7 +220,7 @@ vim +90 /etc/pacman.d/mirrorlist
 pacman -Sy
 ```
 
-### 2.3 基础包
+#### 3 基础包
 
 ```zsh
 # 安装基础包
@@ -239,9 +241,9 @@ openssh             # SSH 服务
 zsh                 # Shell
 ```
 
-## 3. 配置系统
+### 配置系统
 
-### 3.1 生成 fstab 文件
+#### 1 生成 fstab 文件
 
 ```zsh
 # 生成 fstab 文件
@@ -251,14 +253,14 @@ genfstab -U /mnt > /mnt/etc/fstab
 cat /mnt/etc/fstab
 ```
 
-### 3.2 chroot 至新环境
+#### 2 chroot 至新环境
 
 ```zsh
 # chroot 至新环境
 arch-chroot /mnt
 ```
 
-### 3.3 设置时间和时区
+#### 3 设置时间和时区
 
 ```zsh
 # 创建链接文件
@@ -277,7 +279,7 @@ hwclock --systohc
 hwclock --show
 ```
 
-### 3.4 设置区域和本地化
+#### 4 设置区域和本地化
 
 ```zsh
 # 1. 编辑 locale.gen 文件第171行,取消#号
@@ -307,7 +309,7 @@ LANG=en_US.UTF-8
 source /etc/profile
 ```
 
-### 3.5 设置主机名
+#### 5 设置主机名
 
 ```zsh
 # 创建主机名文件
@@ -317,7 +319,7 @@ echo "ArchLinux" > /etc/hostname
 cat /etc/hostname
 ```
 
-### 3.6 设置 root 用户密码
+#### 6 设置 root 用户密码
 
 ```zsh
 # 设置 root 用户密码
@@ -325,7 +327,7 @@ passwd root
 ...
 ```
 
-### 3.7 设置 GRUB
+#### 7 设置 GRUB
 
 ```zsh
 # 1. 将 GRUB 引导程序安装到 EFI 系统分区
@@ -335,6 +337,35 @@ grub-install --target=x86_64-efi --efi-directory=/boot/ --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
-## 4. 重启计算机
+### 重启计算机
 
 输入 ```exit``` 退出 chroot 环境,执行 ```reboot``` 重启系统.
+
+## 安装 驱动
+
+### 安装
+
+[ √ ] CPU
+[ x ] CPU
+
+```zsh
+```
+
+### niri 参考资源
+
+#### 1 Arch Linux 维基文档
+
+查看 [Arch Linux 维基](https://wiki.archlinuxcn.org/wiki/%E9%A6%96%E9%A1%B5) 文档
+
+#### 2 niri 文档
+
+查看 [niri](https://niri-wm.github.io/niri/Getting-Started.html) 文档
+
+#### 3 Noctalia 文档
+
+查看 [Noctalia](https://docs.noctalia.dev) 文档
+
+### 安装
+
+```zsh
+```
