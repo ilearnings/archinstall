@@ -535,7 +535,7 @@ git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si
 sudo pacman -Syu
 ```
 
-#### 16 安装包
+#### 16 paru 安装包
 
 ```zsh
 paru -S
