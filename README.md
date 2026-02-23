@@ -380,6 +380,14 @@ ClienAliveCountMax 0
 # 验证显卡信息
 lspci | grep -i vga
 
+# 验证已安装的字体
+fc-list | grep <fontname>
+
+e.g.
+fc-list | grep jetbrains
+
+---
+
 # 服务自启动
 # 系统级
 systemctl enable NetworkManager sshd bluetooth
@@ -527,17 +535,12 @@ git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si
 sudo pacman -Syu
 ```
 
-#### 16 安装中文字体
+#### 16 安装包
 
 ```zsh
-# 中文字体
-paru -S ttf-maplemononormal-nf-cn-unhinted
-
-# 验证已安装的字体
-fc-list | grep <fontname>
-
-e.g.
-fc-list | grep jetbrains
+paru -S
+microsoft-edge-stable                 # Edge 浏览器
+ttf-maplemononormal-nf-cn-unhinted    # Maple Mono 字体
 ```
 
 ## niri 参考资源
